@@ -24,14 +24,14 @@ Example
 ============
 
 
-
-html makrup 
+''''
+<!-- html markup -->
 <input id="test" type="text" data-bound="12:t_prop"/>
 
 var binder = DataBinder();
 
 var to_bound_obj = {id: '12',  t_prop: "test"};
-
+''''
 
 var bound = binder(toBoundObj.id, toBoundObj);
 Note: you don't have to pass in an object, you only need an ID.  if you don't pass in an object it will create an empty
