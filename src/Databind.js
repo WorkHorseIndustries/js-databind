@@ -12,7 +12,7 @@ if (jQuery !== undefined) {
             This will use the publish/ subscriber data model.  Where a data object
             signal bound elements in HTML using the the data attribute under data-bound.
             The value of data-m-bound should be a list of colon sepereated key value pairs e.g.
-            data-bound="<key> : <value>, <key> : <value>". The <key> reperesents and unique
+            data-bound="<key>:<value>, <key>:<value>". The <key> reperesents and unique
             identifier for the object being bound to this element. The <value> represents the 
             property for that object, which the field is associated with. 
     
