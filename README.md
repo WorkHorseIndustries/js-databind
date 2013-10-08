@@ -61,11 +61,11 @@ set (p_names, val)
 // it updates the html
 
 
-bind
+bind()
 // binds the object to the html.  IMPORTANT this is called on construction and doesn't need to be called again unless 
 // the object is unbound
 
-unbind 
+unbind()
 // unbinds the object. 
 ```
 
