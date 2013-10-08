@@ -24,14 +24,15 @@ Example
 ============
 
 
-''''
+```html
 <!-- html markup -->
 <input id="test" type="text" data-bound="12:t_prop"/>
-
+```
+```javascript
 var binder = DataBinder();
 
 var to_bound_obj = {id: '12',  t_prop: "test"};
-''''
+```
 
 var bound = binder(toBoundObj.id, toBoundObj);
 Note: you don't have to pass in an object, you only need an ID.  if you don't pass in an object it will create an empty
@@ -44,27 +45,29 @@ as a parameter you set both the toBoundObj and the html input.
 Methods
 ===========
 After initializing the DataBinder object
+```javascript
 var binder = DataBinder();
 var inst = binder(id, optional obj);
 
-inst has 4 methods available.
+// inst has 4 methods available.
 
 get (p_name)  
-this retrieves the underling object property p_name
+// this retrieves the underling object property p_name
 
 set (p_names, val)
-p_name is either a string or an array of strings. 
-if pnames is a string it will set the object property p_names to be value and update the html
-if pnames is an array it will iterate over pnames and at each instance set that property to val after iteration
-it updates the html
+// p_name is either a string or an array of strings. 
+// if pnames is a string it will set the object property p_names to be value and update the html
+// if pnames is an array it will iterate over pnames and at each instance set that property to val after iteration
+// it updates the html
 
 
 bind
-binds the object to the html.  IMPORTANT this is called on construction and doesn't need to be called again unless 
-the object is unbound
+// binds the object to the html.  IMPORTANT this is called on construction and doesn't need to be called again unless 
+// the object is unbound
 
 unbind 
-unbinds the object. 
+// unbinds the object. 
+```
 
 
 
