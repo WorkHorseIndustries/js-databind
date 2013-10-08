@@ -4,6 +4,8 @@ if (jQuery !== undefined) {
         'use strict';
 
         /*
+            insipration:  http://www.lucaongaro.eu/blog/2012/12/02/easy-two-way-data-binding-in-javascript/
+            
             Goal:
             Provide two way binding between a javascript object and an associated 
             html object, such that changes in one are automatically reflected in the other.
