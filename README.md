@@ -3,6 +3,13 @@ js-databind
 
 binds javascript objects and html input elements, so that a change to one will be reflect in the other.
 
+Requirments
+===========
+jQuery
+
+
+Summary
+===========
 
 Simply Add the data-bound="key:value" to the input element of the html. key is a unique identifier shared with the 
 javascript object and value is the property of the javascript object. It is possible to bind multiple properties from the
