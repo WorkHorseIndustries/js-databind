@@ -20,7 +20,7 @@ if (jQuery !== undefined) {
     
     
             The document will listen on the change event for all elements with data-bound.
-            When a change event is captured, the value of data-m-bound will be parsed.
+            When a change event is captured, the value of data-bound will be parsed.
     
             for each key it will trigger an event bound<key>:change and the data passed to the event
             will be the new value, and prop name. If multiple <key>'s are
@@ -56,7 +56,7 @@ if (jQuery !== undefined) {
             }
 
            // listen to dom for changes of the data-m-bound elements
-            $(document, '[data-bound]').on('change', '[data-m-bound]',  function (e) {
+            $(document, '[data-bound]').on('change', '[data-bound]',  function (e) {
                 // create an array of from the data-m-bound "<key>:<value>"
                 var el = $(this),
                     data = parse_m_bound(el.data('bound')),
