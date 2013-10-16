@@ -56,7 +56,7 @@ if (jQuery !== undefined) {
             }
 
            // listen to dom for changes of the data-m-bound elements
-            $(document, '[data-bound]').on('change', '[data-bound]',  function (e) {
+            $(document).on('change', '[data-bound]',  function (e) {
                 // create an array of from the data-m-bound "<key>:<value>"
                 var el = $(this),
                     data = parse_m_bound(el.data('bound')),
