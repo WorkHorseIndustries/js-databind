@@ -1,6 +1,6 @@
 if (jQuery !== undefined) {
     //Databinder
-   DataBinder = (function ($) {
+    DataBinder = (function ($) {
         'use strict';
 
         /*
@@ -28,16 +28,16 @@ if (jQuery !== undefined) {
             prop names to be updated with the new value. Both the object and the html element will 
             listen on the bound<key>:change event and will update accodingly. 
         */
-       return function () {
-           // pub is the publisher it takes care of listening for changes on either the dom or the subscriber data
+        return function () {
+            // pub is the publisher it takes care of listening for changes on either the dom or the subscriber data
             var pub = $({});
 
-           // gets the event_name/message for a specific id.
+            // gets the event_name/message for a specific id.
             function get_msg(id) {
                 return 'bound' + id + ':change';
             }
 
-           // parses the attribute value from the data-m-bound attribute and converts it to an object of {key: prop_name  || [prop_name1, prop_name2 ...]}
+            // parses the attribute value from the data-m-bound attribute and converts it to an object of {key: prop_name  || [prop_name1, prop_name2 ...]}
             function parse_m_bound(data) {
                 var kvps = data.split(','),
                     data_obj = {},
@@ -55,30 +55,32 @@ if (jQuery !== undefined) {
                 return data_obj;
             }
 
-           // listen to dom for changes of the data-m-bound elements
-            $(document).on('change', '[data-bound]',  function (e) {
+            // listen to dom for changes of the data-m-bound elements
+            $(document).on('change', '[data-bound]', function (e) {
                 // create an array of from the data-m-bound "<key>:<value>"
                 var el = $(this),
                     data = parse_m_bound(el.data('bound')),
                     id, val;
                 for (id in data) {
-                    if (data.hasOwnProperty(id)){
+                    if (data.hasOwnProperty(id)) {
                         val = el.is(':checkbox') ? el.is(':checked') : el.val();
                         pub.trigger(get_msg(id), [val, id, data[id]]);
                     }
                 }
             });
 
-           // attach a listener for a specific Id's message
+            // attach a listener for a specific Id's message
             pub.subscribe = function (id) {
                 pub.on(get_msg(id), function (evt, new_val, id, prop_name) {
                     var el;
                     $('[data-bound*="' + (id + ':' + prop_name) + '"]').each(function () {
                         el = $(this);
                         // html needs to be updated in different ways depending on what type of input it is.
-                        if (el.is(":checkbox")){
+                        if (el.is(":checkbox")) {
                             el.prop('checked', new_val);
-                        }else if (el.is("input, textarea, select")) {
+                        } else if (el.is('input:radio')){
+                            $('input:radio[name='+ el.prop('name')+']').filter('[value='+new_val+']').prop('checked', true);
+                        } else if (el.is("input, textarea, select, :radio")) {
                             el.val(new_val);
                         } else {
                             el.html(new_val);
@@ -87,20 +89,23 @@ if (jQuery !== undefined) {
                 });
             };
 
-           //turn off listener for a specific ID's message
+            //turn off listener for a specific ID's message
             pub.unsubscribe = function (id) {
                 pub.off(get_msg(id));
             };
 
             // registers different ids with the publisher.  on construction binds the object to change.  
-            function Registrar(id, obj) {
+            function Registrar(id, obj, init_from_obj) {
+                "use strict";
                 // the object that will be updated. 
                 obj = obj || {};
+                init_from_obj = init_from_obj === undefined ? true : init_from_obj;
                 // createa new subsciber object that acts as an accessor for this object. 
                 var subscriber = {
                     // set the property or properties of obj to new value
                     set: function (props, new_val) {
                         var i;
+                        // set all the props on object that match props to be this new value
                         if ($.isArray(props)) {
                             for (i = 0; i < props.length; i++) {
                                 obj[props[i]] = new_val;
@@ -127,12 +132,18 @@ if (jQuery !== undefined) {
                     unbind: function () {
                         pub.unsubscribe(id);
                     }
-                };
+                }, prop;
 
                 subscriber.bind();
+                if (init_from_obj) {
+                    for (prop in obj) {
+                        if (obj.hasOwnProperty(prop)) {
+                            subscriber.set(prop, obj[prop]);
+                        }
+                    }
+                }
                 return subscriber;
             }
-
             return Registrar;
         };
     })(jQuery);
